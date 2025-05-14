@@ -15,7 +15,11 @@ engine = create_engine(
     connect_args={"check_same_thread": False},
 )
 
-TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+TestingSessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine,
+)
 
 
 # Переопределение зависимости get_db для использования тестовой БД
