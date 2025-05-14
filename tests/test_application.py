@@ -11,8 +11,10 @@ from src.models import Base
 # Настройка тестовой базы данных
 SQLALCHEMY_DATABASE_URL = "sqlite:///./test_recipes.db"
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+    SQLALCHEMY_DATABASE_URL,
+    connect_args={"check_same_thread": False},
 )
+
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
