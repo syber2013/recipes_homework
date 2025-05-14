@@ -14,7 +14,8 @@ app = FastAPI()
 @app.get("/recipes", response_model=List[RecipeViewSchema])
 def read_recipes(db: Session = Depends(get_db)):
     recipes = (
-        db.query(Recipe).order_by(Recipe.views.desc(), Recipe.cooking_time.asc()).all()
+        db.query(Recipe).order_by(Recipe.views.desc(), 
+        Recipe.cooking_time.asc()).all()
     )
     return recipes
 
