@@ -1,9 +1,10 @@
-from fastapi.testclient import TestClient
 import pytest
-from main import app
-from database import get_db
+from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
+from database import get_db
+from main import app
 from models import Base
 
 # Настройка тестовой базы данных
@@ -90,6 +91,7 @@ def test_read_nonexistent_recipe():
     assert data["error"] == "Рецепт не найден"
 
 import os
+
 
 def teardown_module(module):
     # Удаляем тестовую базу после тестов
