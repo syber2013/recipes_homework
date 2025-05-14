@@ -1,6 +1,8 @@
-from fastapi import FastAPI, Depends
-from sqlalchemy.orm import Session
 from typing import List
+
+from fastapi import Depends, FastAPI
+from sqlalchemy.orm import Session
+
 from database import get_db
 from models import Recipe
 from schemas import RecipeSchema, RecipeViewSchema
@@ -37,3 +39,4 @@ def create_recipe(recipe: RecipeSchema, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(db_recipe)
     return db_recipe
+
