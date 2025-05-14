@@ -9,11 +9,15 @@ from schemas import RecipeSchema, RecipeViewSchema
 
 app = FastAPI()
 
+
 # GET /recipes — получить список всех рецептов
 @app.get("/recipes", response_model=List[RecipeViewSchema])
 def read_recipes(db: Session = Depends(get_db)):
-    recipes = db.query(Recipe).order_by(Recipe.views.desc(), Recipe.cooking_time.asc()).all()
+    recipes = (
+        db.query(Recipe).order_by(Recipe.views.desc(), Recipe.cooking_time.asc()).all()
+    )
     return recipes
+
 
 # GET /recipes/{recipe_id} — получить детальную информацию о конкретном рецепте
 @app.get("/recipes/{recipe_id}", response_model=RecipeViewSchema)
@@ -25,6 +29,7 @@ def read_recipe(recipe_id: int, db: Session = Depends(get_db)):
         return recipe
     else:
         return {"error": "Рецепт не найден"}
+
 
 # POST /recipes — создать новый рецепт
 @app.post("/recipes", response_model=RecipeViewSchema)
@@ -39,4 +44,3 @@ def create_recipe(recipe: RecipeSchema, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(db_recipe)
     return db_recipe
-
