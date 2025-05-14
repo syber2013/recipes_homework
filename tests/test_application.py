@@ -9,8 +9,11 @@ from models import Base
 
 # Настройка тестовой базы данных
 SQLALCHEMY_DATABASE_URL = "sqlite:///./test_recipes.db"
-engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
 
 # Переопределение зависимости get_db для использования тестовой БД
 def override_get_db():
@@ -20,6 +23,7 @@ def override_get_db():
     finally:
         db.close()
 
+
 app.dependency_overrides[get_db] = override_get_db
 
 # Создание таблиц в тестовой БД
@@ -27,13 +31,17 @@ Base.metadata.create_all(bind=engine)
 
 client = TestClient(app)
 
+
 def test_create_recipe():
-    response = client.post("/recipes", json={
-        "name": "Test Recipe",
-        "cooking_time": 30,
-        "ingredients": "ingredient1, ingredient2",
-        "description": "Test description"
-    })
+    response = client.post(
+        "/recipes",
+        json={
+            "name": "Test Recipe",
+            "cooking_time": 30,
+            "ingredients": "ingredient1, ingredient2",
+            "description": "Test description",
+        },
+    )
     assert response.status_code == 200
     data = response.json()
     assert data["name"] == "Test Recipe"
@@ -42,34 +50,45 @@ def test_create_recipe():
     assert data["description"] == "Test description"
     assert data["views"] == 0
 
+
 def test_read_recipes():
     # Создаем пару рецептов для проверки списка
-    client.post("/recipes", json={
-        "name": "Recipe1",
-        "cooking_time": 20,
-        "ingredients": "ingredient1",
-        "description": "desc1"
-    })
-    client.post("/recipes", json={
-        "name": "Recipe2",
-        "cooking_time": 10,
-        "ingredients": "ingredient2",
-        "description": "desc2"
-    })
+    client.post(
+        "/recipes",
+        json={
+            "name": "Recipe1",
+            "cooking_time": 20,
+            "ingredients": "ingredient1",
+            "description": "desc1",
+        },
+    )
+    client.post(
+        "/recipes",
+        json={
+            "name": "Recipe2",
+            "cooking_time": 10,
+            "ingredients": "ingredient2",
+            "description": "desc2",
+        },
+    )
     response = client.get("/recipes")
     assert response.status_code == 200
     data = response.json()
     assert isinstance(data, list)
     assert len(data) >= 2
 
+
 def test_read_recipe_and_increment_views():
     # Создаем рецепт
-    response = client.post("/recipes", json={
-        "name": "Recipe3",
-        "cooking_time": 15,
-        "ingredients": "ingredient3",
-        "description": "desc3"
-    })
+    response = client.post(
+        "/recipes",
+        json={
+            "name": "Recipe3",
+            "cooking_time": 15,
+            "ingredients": "ingredient3",
+            "description": "desc3",
+        },
+    )
     recipe_id = response.json()["id"]
 
     # Получаем рецепт и проверяем увеличение просмотров
@@ -83,12 +102,14 @@ def test_read_recipe_and_increment_views():
     data = response.json()
     assert data["views"] == 2
 
+
 def test_read_nonexistent_recipe():
     response = client.get("/recipes/999999")
     assert response.status_code == 200
     data = response.json()
     assert "error" in data
     assert data["error"] == "Рецепт не найден"
+
 
 import os
 
