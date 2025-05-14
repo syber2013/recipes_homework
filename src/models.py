@@ -1,7 +1,7 @@
-from sqlalchemy import Column, Integer, String, Text, DateTime
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine
 from datetime import datetime
+
+from sqlalchemy import Column, DateTime, Integer, String, Text, create_engine
+from sqlalchemy.ext.declarative import declarative_base
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///recipes.db"
 
@@ -21,3 +21,4 @@ class Recipe(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
 Base.metadata.create_all(bind=engine)
+
