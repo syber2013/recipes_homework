@@ -7,6 +7,7 @@ class RecipeSchema(BaseModel):
     ingredients: str
     description: str
 
+
 class RecipeViewSchema(BaseModel):
     id: int
     name: str
