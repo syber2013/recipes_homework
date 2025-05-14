@@ -112,9 +112,6 @@ def test_read_nonexistent_recipe():
     assert data["error"] == "Рецепт не найден"
 
 
-import os
-
-
 def teardown_module(module):
     # Удаляем тестовую базу после тестов
     if os.path.exists("./test_recipes.db"):
