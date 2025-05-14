@@ -1,12 +1,12 @@
 import os
 
+from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from fastapi.testclient import TestClient
 
-from database import get_db
-from main import app
-from models import Base
+from src.database import get_db
+from src.main import app
+from src.models import Base
 
 # Настройка тестовой базы данных
 SQLALCHEMY_DATABASE_URL = "sqlite:///./test_recipes.db"
