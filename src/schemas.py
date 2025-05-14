@@ -1,3 +1,4 @@
+
 from pydantic import BaseModel, ConfigDict
 
 class RecipeSchema(BaseModel):
