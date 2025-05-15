@@ -8,6 +8,7 @@ engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 Base = declarative_base()
 
+
 class Recipe(Base):
     __tablename__ = "recipes"
 
@@ -19,5 +20,5 @@ class Recipe(Base):
     description = Column(Text)
     created_at = Column(DateTime, default=datetime.utcnow)
 
-Base.metadata.create_all(bind=engine)
 
+Base.metadata.create_all(bind=engine)
