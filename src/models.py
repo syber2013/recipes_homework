@@ -10,7 +10,7 @@ engine = create_engine(SQLALCHEMY_DATABASE_URL)
 Base = declarative_base()
 
 
-class Recipe(Base):
+class Recipe(Base): # type: ignore
     __tablename__ = "recipes"
 
     id = Column(Integer, primary_key=True, index=True)
