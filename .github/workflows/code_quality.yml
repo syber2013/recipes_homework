@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install black isort flake8 mypy pytest sqlalchemy fastapi uvicorn
+          pip install black isort flake8 mypy pytest pytest-cov sqlalchemy fastapi uvicorn
 
       - name: Run isort check
         run: isort --check --profile black .
@@ -37,5 +37,5 @@ jobs:
       - name: Run mypy type check
         run: mypy .
 
-      - name: Run tests with pytest
+      - name: Run tests with pytest and coverage
         run: pytest .
