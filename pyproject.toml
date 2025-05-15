@@ -12,3 +12,9 @@ skip = ["venv", ".git", "__pycache__"]
 explicit_package_bases = true
 plugins = ["sqlalchemy.ext.mypy.plugin"]
 
+[tool.coverage.run]
+branch = true
+source = ["src"]
+
+[tool.coverage.report]
+fail_under = 80
