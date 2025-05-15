@@ -29,11 +29,12 @@ def read_recipes(db: Session = Depends(get_db)):
 def read_recipe(recipe_id: int, db: Session = Depends(get_db)):
     recipe = db.query(Recipe).filter(Recipe.id == recipe_id).first()
     if recipe:
-        recipe.views += 1
+        recipe.views = (recipe.views or 0) + 1
         db.commit()
         return recipe
     else:
         return {"error": "Рецепт не найден"}
+
 
 
 # POST /recipes — создать новый рецепт
