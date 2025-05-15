@@ -36,7 +36,6 @@ def read_recipe(recipe_id: int, db: Session = Depends(get_db)):
         return {"error": "Рецепт не найден"}
 
 
-
 # POST /recipes — создать новый рецепт
 @app.post("/recipes", response_model=RecipeViewSchema)
 def create_recipe(recipe: RecipeSchema, db: Session = Depends(get_db)):
