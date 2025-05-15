@@ -10,3 +10,4 @@ skip = ["venv", ".git", "__pycache__"]
 
 [tool.mypy]
 explicit_package_bases = true
+plugins = sqlalchemy.ext.mypy.plugin
