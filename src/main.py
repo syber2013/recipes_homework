@@ -3,9 +3,9 @@ from typing import List
 from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session
 
-from database import get_db
-from models import Recipe
-from schemas import RecipeSchema, RecipeViewSchema
+from src.database import get_db
+from src.models import Recipe
+from src.schemas import RecipeSchema, RecipeViewSchema
 
 app = FastAPI()
 
