@@ -112,10 +112,10 @@ def test_read_recipe_and_increment_views():
 
 def test_read_nonexistent_recipe():
     response = client.get("/recipes/999999")
-    assert response.status_code == 200
+    assert response.status_code == 404
     data = response.json()
-    assert "error" in data
-    assert data["error"] == "Рецепт не найден"
+    assert "detail" in data
+    assert data["detail"] == "Рецепт не найден"
 
 
 def teardown_module(module):
