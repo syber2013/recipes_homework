@@ -33,7 +33,7 @@ def read_recipe(recipe_id: int, db: Session = Depends(get_db)):
         db.commit()
         return recipe
     else:
-        return {"error": "Рецепт не найден"}
+        raise HTTPException(status_code=404, detail="Рецепт не найден")
 
 
 # POST /recipes — создать новый рецепт
